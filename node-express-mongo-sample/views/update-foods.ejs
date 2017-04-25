@@ -1,0 +1,65 @@
+<% include partials/header %>
+
+<div class="container">
+
+    <h2>Update Food</h2>
+    
+    <p><a href="/">Home</a><p>
+
+    <form>
+        <input type="hidden" name="food_id" id="food_id" value="<%= food._id %>">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="<%= food.name %>">
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Category</label>
+            <input type="text" name="category" id="category" value="<%= food.category %>">
+        </div>
+
+        <div class="form-group">
+            <label for="servingSize">Serving Size</label>
+            <input type="text" name="servingSize" id="servingSize" value="<%= food.servingSize %>">
+        </div>
+
+        <div class="form-group">
+            <label for="caloriesPerServingSize">Calories per Serving Size</label>
+            <input type="text" name="caloriesPerServingSize" id="caloriesPerServingSize" value="<%= food.caloriesPerServingSize %>">
+        </div>
+
+        <div class="form-group">
+            <label for="meal">meal</label>
+            <input type="text" name="meal" id="meal" value="<%= food.meal %>">
+        </div>
+
+        <a href="#" class="btn btn-success" id="update">Save</a>
+    </form>
+
+</div>
+
+<script>
+$(document).ready(function () {
+    $('#update').on('click', updateFood)
+})
+function updateFood () {
+    var food = {
+        "id": $('#food_id').val(),
+        "name": $('#name').val(),
+        "category": $('#category').val(),
+        "servingSize": $('#servingSize').val(),
+        "caloriesPerServingSize": $('#caloriesPerServingSize').val(),
+        "meal": $('#meal').val()
+    }
+    $.ajax({
+        type: 'PUT',
+        url: '/foods/update',
+        data: food
+    }).done(function (response) {
+        window.location.replace('/')
+    })
+    window.location.replace('/')
+}
+</script>
+
+<% include partials/footer %>
